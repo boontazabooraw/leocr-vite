@@ -71,7 +71,7 @@ export default function Main() {
       <div className="flex flex-col gap-4 min-w-full">
         <div
           onClick={openFileDialog}
-          className="relative border rounded-md min-h-50 flex flex-col justify-center items-center"
+          className="relative border rounded-md min-h-50 flex flex-col justify-center items-center hover:bg-(--text)/10 cursor-pointer transition-all duration-300"
         >
           {!image ? (
             <div className="flex flex-col text-center relative">
@@ -85,12 +85,14 @@ export default function Main() {
               <span className="pointer-events-none">
                 Drag n' Drop the image here
               </span>
-              <span className="opacity-70 text-sm">or Paste (CTRL + V)</span>
+              <span className="opacity-70 text-sm pointer-events-none">
+                or Paste (CTRL + V)
+              </span>
             </div>
           ) : (
             <img
               src={image}
-              className="absolute overflow-none object-cover max-h-full"
+              className="absolute overflow-none h-full w-full object-cover blur-[2px] saturate-20"
               alt="Uploaded image"
             />
           )}
@@ -98,12 +100,14 @@ export default function Main() {
         <button
           onClick={() => runOCR(image)}
           disabled={!image || progress === 0 || progress === 100 ? true : false}
-          className="border place-self-center-safe min-w-30 min-h-10 rounded-md bg-(--text) text-(--bg) disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+          className={`
+            ${image && 'bg-(--text) text-(--bg) hover:bg-(--text)/90'} 
+            border border-(--text) place-self-center-safe min-w-30 min-h-10 rounded-md disabled:pointer-events-none cursor-pointer transition-colors duration-700`}
         >
           <span>{!progress ? "Process" : progress + "%"}</span>
         </button>
         <textarea
-          className="relative p-2 border rounded-md min-h-50 min-w-70 flex flex-col justify-center items-center"
+          className="relative p-2 outline-dashed outline-2 rounded-md min-h-50 min-w-70 flex flex-col justify-center items-center"
           value={text}
           readOnly
         />
