@@ -7,7 +7,7 @@ export default function Topnav() {
 
   return (
     <div className="flex justify-between p-2 fixed top-0 w-full">
-      <h1>&nbsp;</h1>
+      <h1 className="text-2xl">LeOCR</h1>
       <button className="p-2 text-(--text)" onClick={toggleTheme}>
         {theme === "light" ? (
           <Dark className="w-8 h-8" />
