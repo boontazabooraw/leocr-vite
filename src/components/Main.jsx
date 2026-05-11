@@ -4,10 +4,20 @@ import Tesseract from "tesseract.js";
 export default function Main() {
   const [image, setImage] = useState(null);
   const [text, setText] = useState("");
+  const [progress, setProgress] = useState(null);
 
   const runOCR = (file) => {
-    Tesseract.recognize(file, "eng")
-      .then(({ data: { text } }) => setText(text))
+    Tesseract.recognize(file, "eng", {
+      logger: (prgrs) => {
+        if (prgrs.status === "recognizing text") {
+          setProgress(Math.round(prgrs.progress * 100));
+        }
+      },
+    })
+      .then(({ data: { text } }) => {
+        setText(text);
+        setProgress(100);
+      })
       .catch((err) => console.error(err));
   };
 
@@ -59,14 +69,16 @@ export default function Main() {
           )}
         </div>
         <button
-          onClick={runOCR}
-          className="border place-self-center-safe min-w-30 min-h-10 rounded-md bg-(--text) text-(--bg)"
+          onClick={() => runOCR(image)}
+          disabled={!image || progress === 0 || progress === 100 ? true : false}
+          className="border place-self-center-safe min-w-30 min-h-10 rounded-md bg-(--text) text-(--bg) disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
         >
-          Process
+          <span>{!progress ? "Process" : progress + "%"}</span>
         </button>
         <textarea
           className="relative p-2 border rounded-md min-h-50 min-w-70 flex flex-col justify-center items-center"
           value={text}
+          readOnly
         />
       </div>
     </main>
