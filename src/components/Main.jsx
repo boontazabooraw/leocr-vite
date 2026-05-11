@@ -49,8 +49,8 @@ export default function Main() {
       onDrop={handleDrop}
       className="section flex flex-col justify-center items-center gap-4 min-h-screen"
     >
-      <h1 className="text-center font-semibold text-5xl tracking-tight">
-        LeOCR
+      <h1 className="text-center text-2xl tracking-tight font-quicksand">
+        Fast, lightweight OCR — turn images into editable text in seconds.
       </h1>
 
       <div className="flex flex-col gap-4 min-w-full">
