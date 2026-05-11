@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Tesseract from "tesseract.js";
 
 export default function Main() {
   const [image, setImage] = useState(null);
   const [text, setText] = useState("");
   const [progress, setProgress] = useState(null);
+
+  const fileInputRef = useRef(null);
 
   const runOCR = (file) => {
     Tesseract.recognize(file, "eng", {
@@ -29,13 +31,26 @@ export default function Main() {
     }
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+    }
+  };
+
+  const openFileDialog = () => {
+    fileInputRef.current.click();
+  };
+
   useEffect(() => {
     const handlePaste = (event) => {
       const items = event.clipboardData.items;
       for (const item of items) {
         if (item.type.indexOf("image") !== -1) {
           const file = item.getAsFile();
-          setImage(URL.createObjectURL(file));
+          if (file) {
+            setImage(URL.createObjectURL(file));
+          }
         }
       }
     };
@@ -54,10 +69,22 @@ export default function Main() {
       </h1>
 
       <div className="flex flex-col gap-4 min-w-full">
-        <div className="relative border rounded-md min-h-50 flex flex-col justify-center items-center">
+        <div
+          onClick={openFileDialog}
+          className="relative border rounded-md min-h-50 flex flex-col justify-center items-center"
+        >
           {!image ? (
-            <div className="flex flex-col text-center">
-              <span>Drag n' Drop the image here</span>
+            <div className="flex flex-col text-center relative">
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handleFileChange}
+              />
+              <span className="pointer-events-none">
+                Drag n' Drop the image here
+              </span>
               <span className="opacity-70 text-sm">or Paste (CTRL + V)</span>
             </div>
           ) : (

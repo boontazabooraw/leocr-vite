@@ -12,7 +12,7 @@ export default function Topnav() {
         {theme === "light" ? (
           <Dark className="w-8 h-8" />
         ) : (
-          <Light className="w-8 h-8 " />
+          <Light className="w-8 h-8" />
         )}
       </button>
     </div>
