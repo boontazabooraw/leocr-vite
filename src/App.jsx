@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div
-      className={`${theme === "dark" ? "dark" : ""} min-h-screen bg-(--bg) text-(--text) transition-colors duration-200`}
+      className={`${theme === "dark" ? "dark" : ""} bg-(--bg) text-(--text) transition-colors duration-200 relative`}
     >
       <Topnav />
       <Main />
