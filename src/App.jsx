@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Main from "./components/Main";
 import Topnav from "./components/Topnav";
 import { useTheme } from "./hooks/useTheme";
@@ -11,6 +12,7 @@ function App() {
     >
       <Topnav />
       <Main />
+      <Footer />
     </div>
   );
 }
