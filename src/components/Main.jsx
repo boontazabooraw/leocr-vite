@@ -68,10 +68,10 @@ export default function Main() {
         Fast, lightweight OCR — turn images into editable text in seconds.
       </h1>
 
-      <div className="flex flex-col gap-4 min-w-full">
+      <div className="flex flex-col gap-4 min-w-full xl:px-60 2xl:px-90">
         <div
           onClick={openFileDialog}
-          className="relative border rounded-md min-h-50 flex flex-col justify-center items-center hover:bg-(--text)/10 cursor-pointer transition-all duration-300"
+          className="relative border rounded-md min-h-60 xl:min-h-70 flex flex-col justify-center items-center hover:bg-(--text)/10 cursor-pointer transition-all duration-300"
         >
           {!image ? (
             <div className="flex flex-col text-center relative">
@@ -107,7 +107,7 @@ export default function Main() {
           <span>{!progress ? "Process" : progress + "%"}</span>
         </button>
         <textarea
-          className="relative p-2 outline-dashed outline-2 rounded-md min-h-50 min-w-70 flex flex-col justify-center items-center"
+          className="relative p-2 outline-dashed outline-2 rounded-md min-h-60 xl:min-h-70 min-w-70 flex flex-col justify-center items-center"
           value={text}
           readOnly
         />
