@@ -75,6 +75,15 @@ export default function Main() {
     }
   };
 
+  const handleClear = () => {
+    if (image) {
+      setImage(null);
+      setImagePreview(null);
+      setText("");
+      setProgress(null);
+    }
+  };
+
   const openFileDialog = () => {
     fileInputRef.current.click();
   };
@@ -94,7 +103,7 @@ export default function Main() {
     };
     window.addEventListener("paste", handlePaste);
     return () => window.removeEventListener("paste", handlePaste);
-  }, []);
+  });
 
   return (
     <main
@@ -135,14 +144,18 @@ export default function Main() {
             />
           )}
         </div>
+
         <button
-          onClick={() => runOCR(image)}
-          disabled={!image || progress === 0 || progress === 100 ? true : false}
+          onClick={() => (progress === 100 ? handleClear() : runOCR(image))}
           className={`
             ${image ? "opacity-100" : "opacity-0"} 
             border border-(--text) place-self-center-safe min-w-30 min-h-10 rounded-md disabled:pointer-events-none cursor-pointer transition-all duration-700`}
         >
-          <span>{!progress ? "Process" : progress + "%"}</span>
+          {progress === 100 ? (
+            <span>New</span>
+          ) : (
+            <span>{!progress ? "Process" : progress + "%"}</span>
+          )}
         </button>
 
         {/* TEXT AREA */}
