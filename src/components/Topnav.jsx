@@ -8,11 +8,14 @@ export default function Topnav() {
   return (
     <div className="flex justify-between p-4 fixed top-0 w-full">
       <h1 className="text-center font-semibold font-inter text-2xl">LeOCR</h1>
-      <button className="text-(--text) hover:opacity-80 transition-all duration-300 " onClick={toggleTheme}>
+      <button
+        className="text-(--text) hover:opacity-80 transition-all duration-300 "
+        onClick={toggleTheme}
+      >
         {theme === "light" ? (
-          <Dark className="w-8 h-8" />
-        ) : (
           <Light className="w-8 h-8" />
+        ) : (
+          <Dark className="w-8 h-8" />
         )}
       </button>
     </div>
